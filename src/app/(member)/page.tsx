@@ -178,7 +178,7 @@ export default function Home() {
             {unlinkedMembers.map(member => (
               <li key={member.id} className="p-4 flex justify-between items-center">
                 <div>
-                  <p className="font-bold">{member.name}</p>
+                  <p className="font-bold text-gray-900">{member.name}</p>
                   <p className="text-xs text-gray-500">{member.part}</p>
                 </div>
                 <button
