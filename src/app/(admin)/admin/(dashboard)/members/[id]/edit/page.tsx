@@ -146,11 +146,6 @@ export default async function EditMemberPage({ params }: { params: Promise<{ id:
                 <button
                     type="submit"
                     className="w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-red-600 shadow-sm ring-1 ring-inset ring-red-300 hover:bg-red-50"
-                    onClick={() => {
-                        // This onclick won't work in Server Component without 'use client', but we can live without confirmation for now or rely on browser default if we assume client component.
-                        // Actually, to add confirmation, we need 'use client'.
-                        // Let's just output the button for now.
-                    }}
                 >
                     この団員を削除する
                 </button>
