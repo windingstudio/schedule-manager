@@ -234,7 +234,14 @@ export default function Home() {
       if (!dateStr) return '日付未定'
       const d = new Date(dateStr)
       if (isNaN(d.getTime())) return '日付不明'
-      return d.toLocaleDateString('ja-JP', { month: 'numeric', day: 'numeric', weekday: 'short' })
+
+      // Manual formatting to avoid hydration mismatch (Server vs Client locale diffs)
+      const month = d.getMonth() + 1
+      const day = d.getDate()
+      const weekdays = ['日', '月', '火', '水', '木', '金', '土']
+      const weekday = weekdays[d.getDay()]
+
+      return `${month}/${day}(${weekday})`
     } catch (e) {
       console.error('Date parsing error', e)
       return dateStr
