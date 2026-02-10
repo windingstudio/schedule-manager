@@ -151,11 +151,9 @@ export default function Home() {
       if (error) {
         throw error
       }
-    } catch (e) {
+    } catch (e: any) {
       console.error(e)
-      alert('ステータスの更新に失敗しました。もう一度お試しください。')
-      // Revert optimistically if needed (skipping for simplicity as reload fixes state)
-      // window.location.reload() 
+      alert(`エラーが発生しました: ${e.message || JSON.stringify(e)}`)
     }
   }
 
