@@ -31,17 +31,26 @@ export async function signup(formData: FormData) {
     const email = formData.get('email') as string
     const password = formData.get('password') as string
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+            emailRedirectTo: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/callback`,
+        }
     })
-
-    // console.log("Signup result:", { data, error })
 
     if (error) {
         redirect('/admin/login?error=Registration failed: ' + error.message)
     }
 
-    revalidatePath('/admin', 'layout')
-    redirect('/admin')
+    if (data.session) {
+        // User signed in automatically (email confirmation disabled)
+        revalidatePath('/admin', 'layout')
+        redirect('/admin')
+    } else if (data.user) {
+        // Email confirmation required
+        redirect('/admin/login?message=Check your email to confirm verification')
+    } else {
+        redirect('/admin/login?error=Unknown error occurred')
+    }
 }

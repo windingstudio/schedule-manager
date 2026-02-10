@@ -1,6 +1,10 @@
 import { login, signup } from './actions'
 
-export default function LoginPage() {
+export default function LoginPage({
+    searchParams,
+}: {
+    searchParams?: { [key: string]: string | string[] | undefined }
+}) {
     return (
         <div className="flex h-screen items-center justify-center bg-gray-50">
             <div className="w-full max-w-md space-y-8 rounded-lg bg-white p-8 shadow-md">
@@ -13,6 +17,16 @@ export default function LoginPage() {
                         (初回のみ新規登録ボタンを押してください)
                     </p>
                 </div>
+                {searchParams?.message && (
+                    <div className="mt-4 p-3 bg-green-50 text-green-700 border border-green-200 rounded-md text-sm">
+                        {searchParams.message}
+                    </div>
+                )}
+                {searchParams?.error && (
+                    <div className="mt-4 p-3 bg-red-50 text-red-700 border border-red-200 rounded-md text-sm">
+                        {searchParams.error}
+                    </div>
+                )}
                 <form className="mt-8 space-y-6">
                     <div className="-space-y-px rounded-md shadow-sm">
                         <div>
