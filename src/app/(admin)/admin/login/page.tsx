@@ -92,21 +92,7 @@ export default function LoginPage({
                     </div>
 
                     <div className="flex flex-col gap-3">
-                        <button
-                            type="button"
-                            onClick={() => {
-                                // Since these are client-side redirects from server actions, using formAction might be tricky for OAuth URLs.
-                                // But for simplicity, we can use a server action that redirects.
-                                // However, standard practice often uses client-side supabase.auth.signInWithOAuth for immediate redirection.
-                                // Let's stick to Server Actions for consistency if possible, or use a form submit.
-                                const form = document.createElement('form');
-                                form.method = 'post';
-                                form.action = '/admin/login/oauth?provider=google'; // We need a way to trigger the action
-                                // Actually, let's just use formAction with bind
-                            }}
-                            className="hidden" // Placeholder logic
-                        >
-                        </button>
+
                         {/* 
                             Correct approach: Wrap buttons in a separate form or use formAction with specific handler 
                             We already added loginWithSocial to actions.ts.
