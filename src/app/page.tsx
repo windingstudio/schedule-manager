@@ -37,43 +37,44 @@ export default function Home() {
   const supabase = createClient()
 
   useEffect(() => {
+    const checkUserLink = async () => {
+      setLoading(true)
+      try {
+        const lineUserId = await liff?.getProfile().then(profile => profile.userId)
+
+        if (!lineUserId) {
+          setLoading(false)
+          return
+        }
+
+        // Check if member exists with this LINE ID
+        const { data: member } = await supabase
+          .from('members')
+          .select('*')
+          .eq('line_user_id', lineUserId)
+          .single()
+
+        if (member) {
+          setCurrentMember(member)
+          fetchSchedules(member.id)
+        } else {
+          // Not linked yet, fetch all unlinked members for selection
+          fetchUnlinkedMembers()
+        }
+      } catch (e) {
+        console.error(e)
+      } finally {
+        setLoading(false)
+      }
+    }
+
     if (isLoggedIn && liff) {
       checkUserLink()
     } else {
       setLoading(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn, liff])
-
-  const checkUserLink = async () => {
-    setLoading(true)
-    try {
-      const lineUserId = await liff?.getProfile().then(profile => profile.userId)
-
-      if (!lineUserId) {
-        setLoading(false)
-        return
-      }
-
-      // Check if member exists with this LINE ID
-      const { data: member } = await supabase
-        .from('members')
-        .select('*')
-        .eq('line_user_id', lineUserId)
-        .single()
-
-      if (member) {
-        setCurrentMember(member)
-        fetchSchedules(member.id)
-      } else {
-        // Not linked yet, fetch all unlinked members for selection
-        fetchUnlinkedMembers()
-      }
-    } catch (e) {
-      console.error(e)
-    } finally {
-      setLoading(false)
-    }
-  }
 
   const fetchUnlinkedMembers = async () => {
     const { data } = await supabase.from('members').select('*').is('line_user_id', null).order('part')
@@ -116,7 +117,7 @@ export default function Home() {
 
     if (!error) {
       alert('Successfully linked!')
-      checkUserLink()
+      window.location.reload()
     } else {
       alert('Failed to link. Please try again.')
     }
@@ -184,7 +185,7 @@ export default function Home() {
                   onClick={() => handleLinkUser(member.id)}
                   className="bg-indigo-600 text-white text-xs px-3 py-1 rounded"
                 >
-                  It's Me
+                  It&apos;s Me
                 </button>
               </li>
             ))}

@@ -1,6 +1,5 @@
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
-import { deleteSchedule } from './actions'
 
 export default async function SchedulesPage() {
     const supabase = await createClient()

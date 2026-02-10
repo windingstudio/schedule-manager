@@ -1,0 +1,28 @@
+
+> schedule-manager@0.1.0 lint
+> eslint
+
+
+C:\Users\kajim\Documents\pj\schedule-manager\middleware.ts
+   2:35  warning  'CookieOptions' is defined but never used  @typescript-eslint/no-unused-vars
+  20:58  warning  'options' is defined but never used        @typescript-eslint/no-unused-vars
+
+C:\Users\kajim\Documents\pj\schedule-manager\src\app\admin\members\page.tsx
+  3:10  warning  'deleteMember' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\kajim\Documents\pj\schedule-manager\src\app\admin\schedules\[id]\page.tsx
+   2:8   warning  'Link' is defined but never used          @typescript-eslint/no-unused-vars
+  33:41  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\kajim\Documents\pj\schedule-manager\src\app\admin\schedules\page.tsx
+  3:10  warning  'deleteSchedule' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\kajim\Documents\pj\schedule-manager\src\app\page.tsx
+   45:6   warning  React Hook useEffect has a missing dependency: 'checkUserLink'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  187:21  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                   react/no-unescaped-entities
+
+C:\Users\kajim\Documents\pj\schedule-manager\src\utils\supabase\server.ts
+  1:35  warning  'CookieOptions' is defined but never used  @typescript-eslint/no-unused-vars
+
+笨・9 problems (2 errors, 7 warnings)
+

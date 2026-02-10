@@ -1,5 +1,4 @@
 import { createClient } from '@/utils/supabase/server'
-import Link from 'next/link'
 
 export default async function ScheduleDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params
@@ -30,7 +29,7 @@ export default async function ScheduleDetailPage({ params }: { params: Promise<{
         .eq('schedule_id', id)
 
     // Map attendances by member_id
-    const attendanceMap: Record<string, any> = {}
+    const attendanceMap: Record<string, { status: string; comment: string }> = {}
     attendances?.forEach(a => {
         attendanceMap[a.member_id] = a
     })

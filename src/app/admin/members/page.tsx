@@ -1,6 +1,5 @@
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
-import { deleteMember } from './actions'
 
 export default async function MembersPage() {
     const supabase = await createClient()
