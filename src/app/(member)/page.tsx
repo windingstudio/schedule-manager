@@ -134,22 +134,28 @@ export default function Home() {
   const handleAttendanceChange = async (scheduleId: string, status: string) => {
     if (!currentMember) return
 
-    // Optimistic update
-    const newAttendance = { schedule_id: scheduleId, status, comment: myAttendances[scheduleId]?.comment || '' }
-    setMyAttendances(prev => ({ ...prev, [scheduleId]: newAttendance }))
+    try {
+      // Optimistic update
+      const newAttendance = { schedule_id: scheduleId, status, comment: myAttendances[scheduleId]?.comment || '' }
+      setMyAttendances(prev => ({ ...prev, [scheduleId]: newAttendance }))
 
-    const { error } = await supabase
-      .from('attendances')
-      .upsert({
-        schedule_id: scheduleId,
-        member_id: currentMember.id,
-        status,
-        updated_at: new Date().toISOString()
-      }, { onConflict: 'schedule_id, member_id' })
+      const { error } = await supabase
+        .from('attendances')
+        .upsert({
+          schedule_id: scheduleId,
+          member_id: currentMember.id,
+          status,
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'schedule_id,member_id' }) // Removed space
 
-    if (error) {
-      alert('ステータスの更新に失敗しました')
-      // Revert simplistic...
+      if (error) {
+        throw error
+      }
+    } catch (e) {
+      console.error(e)
+      alert('ステータスの更新に失敗しました。もう一度お試しください。')
+      // Revert optimistically if needed (skipping for simplicity as reload fixes state)
+      // window.location.reload() 
     }
   }
 
