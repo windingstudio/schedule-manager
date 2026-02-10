@@ -23,9 +23,9 @@ export default async function MembersPage() {
         <div>
             <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
-                    <h1 className="text-2xl font-semibold leading-6 text-gray-900">Members</h1>
+                    <h1 className="text-2xl font-semibold leading-6 text-gray-900">団員名簿</h1>
                     <p className="mt-2 text-sm text-gray-700">
-                        A list of all orchestra members.
+                        現在登録されている団員の一覧です。
                     </p>
                 </div>
                 <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
@@ -33,7 +33,7 @@ export default async function MembersPage() {
                         href="/admin/members/new"
                         className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
-                        Add Member
+                        団員を追加
                     </Link>
                 </div>
             </div>
@@ -53,7 +53,7 @@ export default async function MembersPage() {
                                                         {member.name}
                                                     </p>
                                                     <p className="mt-1 flex text-xs leading-5 text-gray-500">
-                                                        Line: {member.line_user_id ? 'Linked' : 'Not Linked'}
+                                                        LINE連携: {member.line_user_id ? '済み' : '未連携'}
                                                     </p>
                                                 </div>
                                             </div>
@@ -68,7 +68,7 @@ export default async function MembersPage() {
                     </div>
                 ))}
                 {(!members || members.length === 0) && (
-                    <p className="text-center text-gray-500 mt-10">No members found. Please add members to start.</p>
+                    <p className="text-center text-gray-500 mt-10">団員が登録されていません。「団員を追加」ボタンから登録してください。</p>
                 )}
             </div>
         </div>

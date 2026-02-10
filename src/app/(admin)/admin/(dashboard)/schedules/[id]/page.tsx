@@ -12,7 +12,7 @@ export default async function ScheduleDetailPage({ params }: { params: Promise<{
         .single()
 
     if (!schedule) {
-        return <div>Schedule not found</div>
+        return <div>日程が見つかりません</div>
     }
 
     // Fetch all members to show everyone
@@ -85,11 +85,11 @@ export default async function ScheduleDetailPage({ params }: { params: Promise<{
             {/* Stats Cards */}
             <div className="grid grid-cols-2 gap-4 mb-8 sm:grid-cols-4">
                 <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-                    <dt className="truncate text-sm font-medium text-gray-500">Attending</dt>
+                    <dt className="truncate text-sm font-medium text-gray-500">出席人数</dt>
                     <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{attendingCount}</dd>
                 </div>
                 <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-                    <dt className="truncate text-sm font-medium text-gray-500">Unresponded</dt>
+                    <dt className="truncate text-sm font-medium text-gray-500">未回答</dt>
                     <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{unknownCount}</dd>
                 </div>
             </div>
@@ -103,9 +103,9 @@ export default async function ScheduleDetailPage({ params }: { params: Promise<{
                                 <table className="min-w-full divide-y divide-gray-300">
                                     <thead>
                                         <tr>
-                                            <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Name</th>
-                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
-                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Comment</th>
+                                            <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">名前</th>
+                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">回答</th>
+                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">コメント</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-gray-200 bg-white">
@@ -113,17 +113,31 @@ export default async function ScheduleDetailPage({ params }: { params: Promise<{
                                             const attendance = attendanceMap[member.id]
                                             const status = attendance?.status || 'unresponded'
                                             let statusColor = 'bg-gray-100 text-gray-800'
-                                            if (status === 'attendance') statusColor = 'bg-green-100 text-green-800'
-                                            if (status === 'absence') statusColor = 'bg-red-100 text-red-800'
-                                            if (status === 'late') statusColor = 'bg-yellow-100 text-yellow-800'
-                                            if (status === 'leave_early') statusColor = 'bg-blue-100 text-blue-800'
+                                            let statusText = '未回答'
+
+                                            if (status === 'attendance') {
+                                                statusColor = 'bg-green-100 text-green-800'
+                                                statusText = '出席'
+                                            }
+                                            if (status === 'absence') {
+                                                statusColor = 'bg-red-100 text-red-800'
+                                                statusText = '欠席'
+                                            }
+                                            if (status === 'late') {
+                                                statusColor = 'bg-yellow-100 text-yellow-800'
+                                                statusText = '遅刻'
+                                            }
+                                            if (status === 'leave_early') {
+                                                statusColor = 'bg-blue-100 text-blue-800'
+                                                statusText = '早退'
+                                            }
 
                                             return (
                                                 <tr key={member.id}>
                                                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">{member.name}</td>
                                                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                                         <span className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${statusColor}`}>
-                                                            {status === 'unresponded' ? 'Unresponded' : status}
+                                                            {statusText}
                                                         </span>
                                                     </td>
                                                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{attendance?.comment}</td>

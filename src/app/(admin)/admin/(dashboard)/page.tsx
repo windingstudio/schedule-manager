@@ -15,90 +15,127 @@ export default async function AdminDashboard() {
     return (
         <div className="space-y-6">
             <header>
-                <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">Dashboard</h1>
+                <h1 className="text-2xl font-bold leading-tight tracking-tight text-gray-900">
+                    ダッシュボード
+                </h1>
             </header>
-
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {/* Quick Actions */}
                 <div className="overflow-hidden rounded-lg bg-white shadow">
                     <div className="p-5">
                         <div className="flex items-center">
                             <div className="flex-shrink-0">
-                                {/* Icon placeholder */}
+                                {/* Icon */}
                                 <svg className="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
                             </div>
                             <div className="ml-5 w-0 flex-1">
                                 <dl>
-                                    <dt className="truncate text-sm font-medium text-gray-500">New Schedule</dt>
+                                    <dt className="truncate text-sm font-medium text-gray-500">
+                                        次回の練習
+                                    </dt>
                                     <dd>
                                         <div className="text-lg font-medium text-gray-900">
-                                            <Link href="/admin/schedules/new" className="text-indigo-600 hover:text-indigo-500">Create</Link>
+                                            {schedules && schedules.length > 0 ? (
+                                                <>
+                                                    {new Date(schedules[0].date).toLocaleDateString()}<br />
+                                                    <span className="text-sm text-gray-500">
+                                                        {schedules[0].start_time.slice(0, 5)} - {schedules[0].end_time.slice(0, 5)}
+                                                    </span>
+                                                </>
+                                            ) : (
+                                                "予定なし"
+                                            )}
                                         </div>
                                     </dd>
                                 </dl>
                             </div>
                         </div>
                     </div>
+                    <div className="bg-gray-50 px-5 py-3">
+                        <div className="text-sm">
+                            <Link href="/admin/schedules" className="font-medium text-indigo-700 hover:text-indigo-900">
+                                すべての予定を見る
+                            </Link>
+                        </div>
+                    </div>
                 </div>
+
                 <div className="overflow-hidden rounded-lg bg-white shadow">
                     <div className="p-5">
                         <div className="flex items-center">
                             <div className="flex-shrink-0">
-                                {/* Icon placeholder */}
+                                {/* Icon */}
                                 <svg className="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                                 </svg>
                             </div>
                             <div className="ml-5 w-0 flex-1">
                                 <dl>
-                                    <dt className="truncate text-sm font-medium text-gray-500">Manage Members</dt>
+                                    <dt className="truncate text-sm font-medium text-gray-500">
+                                        登録メンバー数
+                                    </dt>
                                     <dd>
                                         <div className="text-lg font-medium text-gray-900">
-                                            <Link href="/admin/members" className="text-indigo-600 hover:text-indigo-500">View All</Link>
+                                            {/* Placeholder for member count */}
+                                            0 名
                                         </div>
                                     </dd>
                                 </dl>
                             </div>
+                        </div>
+                    </div>
+                    <div className="bg-gray-50 px-5 py-3">
+                        <div className="text-sm">
+                            <Link href="/admin/members" className="font-medium text-indigo-700 hover:text-indigo-900">
+                                メンバー管理へ
+                            </Link>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="overflow-hidden bg-white shadow sm:rounded-md">
-                <div className="px-4 py-5 sm:px-6">
-                    <h3 className="text-base font-semibold leading-6 text-gray-900">Upcoming Schedules</h3>
+            <div className="mt-8">
+                <h2 className="text-lg font-medium leading-6 text-gray-900">
+                    ショートカット
+                </h2>
+                <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <Link
+                        href="/admin/schedules/new"
+                        className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
+                    >
+                        <div className="flex-shrink-0">
+                            <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500">
+                                <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div className="min-w-0 flex-1">
+                            <span className="absolute inset-0" aria-hidden="true" />
+                            <p className="text-sm font-medium text-gray-900">予定を追加</p>
+                            <p className="truncate text-sm text-gray-500">新しい練習日程を作成します</p>
+                        </div>
+                    </Link>
+
+                    <Link
+                        href="/admin/members/new"
+                        className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
+                    >
+                        <div className="flex-shrink-0">
+                            <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500">
+                                <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div className="min-w-0 flex-1">
+                            <span className="absolute inset-0" aria-hidden="true" />
+                            <p className="text-sm font-medium text-gray-900">メンバー登録</p>
+                            <p className="truncate text-sm text-gray-500">新しい団員を追加します</p>
+                        </div>
+                    </Link>
                 </div>
-                <ul role="list" className="divide-y divide-gray-200">
-                    {schedules && schedules.length > 0 ? (
-                        schedules.map((schedule) => (
-                            <li key={schedule.id}>
-                                <Link href={`/admin/schedules/${schedule.id}`} className="block hover:bg-gray-50">
-                                    <div className="px-4 py-4 sm:px-6">
-                                        <div className="flex items-center justify-between">
-                                            <p className="truncate text-sm font-medium text-indigo-600">{schedule.content || 'Regular Practice'}</p>
-                                            <div className="ml-2 flex flex-shrink-0">
-                                                <p className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
-                                                    {schedule.place}
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div className="mt-2 sm:flex sm:justify-between">
-                                            <div className="sm:flex">
-                                                <p className="flex items-center text-sm text-gray-500">
-                                                    {schedule.date} {schedule.start_time.slice(0, 5)} - {schedule.end_time.slice(0, 5)}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </li>
-                        ))
-                    ) : (
-                        <li className="px-4 py-4 sm:px-6 text-sm text-gray-500">No upcoming schedules found.</li>
-                    )}
-                </ul>
             </div>
         </div>
     )

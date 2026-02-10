@@ -45,7 +45,7 @@ export default async function AdminLayout({
                         <div className="flex">
                             <div className="flex flex-shrink-0 items-center">
                                 <Link href="/admin" className="font-bold text-xl text-gray-800">
-                                    OrchManager Admin
+                                    管理者画面
                                 </Link>
                             </div>
                             <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
@@ -53,19 +53,19 @@ export default async function AdminLayout({
                                     href="/admin"
                                     className="inline-flex items-center px-1 pt-1 border-b-2 border-indigo-500 text-sm font-medium text-gray-900"
                                 >
-                                    Dashboard
+                                    ダッシュボード
                                 </Link>
                                 <Link
                                     href="/admin/schedules"
                                     className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
                                 >
-                                    Schedules
+                                    スケジュール
                                 </Link>
                                 <Link
                                     href="/admin/members"
                                     className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
                                 >
-                                    Members
+                                    メンバー管理
                                 </Link>
                             </div>
                         </div>
@@ -73,7 +73,7 @@ export default async function AdminLayout({
                             <span className="text-sm text-gray-500 mr-4">{user.email}</span>
                             <form action="/auth/signout" method="post">
                                 <button className="text-sm text-red-600 hover:text-red-800">
-                                    Logout
+                                    ログアウト
                                 </button>
                             </form>
                         </div>
