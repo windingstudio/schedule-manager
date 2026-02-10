@@ -11,7 +11,7 @@ export async function createMember(formData: FormData) {
     const part = formData.get('part') as string
     const role = formData.get('role') as string
     const is_on_leave = formData.get('is_on_leave') === 'on'
-    const age = formData.get('age') ? parseInt(formData.get('age') as string) : null
+    const birthday = formData.get('birthday') as string || null
     const note = formData.get('note') as string
 
     if (!name || !part) {
@@ -23,7 +23,7 @@ export async function createMember(formData: FormData) {
         part,
         role: role || null,
         is_on_leave,
-        age,
+        birthday: birthday || null, // Handle empty string as null
         note,
     })
 
@@ -43,7 +43,7 @@ export async function updateMember(id: string, formData: FormData) {
     const part = formData.get('part') as string
     const role = formData.get('role') as string
     const is_on_leave = formData.get('is_on_leave') === 'on'
-    const age = formData.get('age') ? parseInt(formData.get('age') as string) : null
+    const birthday = formData.get('birthday') as string || null
     const note = formData.get('note') as string
 
     if (!name || !part) {
@@ -55,7 +55,7 @@ export async function updateMember(id: string, formData: FormData) {
         part,
         role: role || null,
         is_on_leave,
-        age,
+        birthday: birthday || null,
         note,
     }).eq('id', id)
 

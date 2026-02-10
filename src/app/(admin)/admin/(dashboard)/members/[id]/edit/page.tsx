@@ -29,7 +29,7 @@ export default async function EditMemberPage({ params }: { params: Promise<{ id:
 
     return (
         <div className="max-w-lg mx-auto">
-            <h1 className="text-2xl font-bold mb-6 text-gray-900">団員情報の編集</h1>
+            <h1 className="text-2xl font-bold mb-6 text-gray-900">隊員情報の編集</h1>
             <form action={updateMemberWithId} className="space-y-6 bg-white p-6 rounded-lg shadow">
                 <div>
                     <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">名前</label>
@@ -83,15 +83,13 @@ export default async function EditMemberPage({ params }: { params: Promise<{ id:
                     </div>
 
                     <div>
-                        <label htmlFor="age" className="block text-sm font-medium leading-6 text-gray-900">年齢</label>
+                        <label htmlFor="birthday" className="block text-sm font-medium leading-6 text-gray-900">生年月日</label>
                         <div className="mt-2">
                             <input
-                                type="number"
-                                name="age"
-                                id="age"
-                                defaultValue={member.age || ''}
-                                min="0"
-                                max="100"
+                                type="date"
+                                name="birthday"
+                                id="birthday"
+                                defaultValue={member.birthday || ''}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-3"
                             />
                         </div>
@@ -147,7 +145,7 @@ export default async function EditMemberPage({ params }: { params: Promise<{ id:
                     type="submit"
                     className="w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-red-600 shadow-sm ring-1 ring-inset ring-red-300 hover:bg-red-50"
                 >
-                    この団員を削除する
+                    この隊員を削除する
                 </button>
             </form>
         </div>
