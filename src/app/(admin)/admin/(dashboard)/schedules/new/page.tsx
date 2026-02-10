@@ -3,7 +3,7 @@ import { createSchedule } from '../actions'
 export default function NewSchedulePage() {
     return (
         <div className="max-w-lg mx-auto">
-            <h1 className="text-2xl font-bold mb-6">練習日程の作成</h1>
+            <h1 className="text-2xl font-bold mb-6 text-gray-900">練習日程の作成</h1>
             <form action={createSchedule} className="space-y-6 bg-white p-6 rounded-lg shadow">
                 <div>
                     <label htmlFor="date" className="block text-sm font-medium leading-6 text-gray-900">日付</label>
@@ -20,13 +20,14 @@ export default function NewSchedulePage() {
 
                 <div className="grid grid-cols-2 gap-4">
                     <div>
-                        <label htmlFor="start_time" className="block text-sm font-medium leading-6 text-gray-900">開始時間</label>
+                        <label htmlFor="start_time" className="block text-sm font-medium leading-6 text-gray-900">集合時間</label>
                         <div className="mt-2">
                             <input
                                 type="time"
                                 name="start_time"
                                 id="start_time"
                                 required
+                                defaultValue="09:45"
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-3"
                             />
                         </div>
@@ -40,6 +41,7 @@ export default function NewSchedulePage() {
                                 name="end_time"
                                 id="end_time"
                                 required
+                                defaultValue="17:00"
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-3"
                             />
                         </div>

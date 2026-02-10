@@ -29,7 +29,7 @@ export default async function EditMemberPage({ params }: { params: Promise<{ id:
 
     return (
         <div className="max-w-lg mx-auto">
-            <h1 className="text-2xl font-bold mb-6">団員情報の編集</h1>
+            <h1 className="text-2xl font-bold mb-6 text-gray-900">団員情報の編集</h1>
             <form action={updateMemberWithId} className="space-y-6 bg-white p-6 rounded-lg shadow">
                 <div>
                     <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">名前</label>
