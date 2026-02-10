@@ -54,3 +54,26 @@ export async function signup(formData: FormData) {
         redirect('/admin/login?error=Unknown error occurred')
     }
 }
+
+export async function loginWithSocial(provider: 'google' | 'apple') {
+    const supabase = await createClient()
+
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+            redirectTo: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/callback`,
+            queryParams: {
+                access_type: 'offline',
+                prompt: 'consent',
+            },
+        },
+    })
+
+    if (error) {
+        redirect('/admin/login?error=' + error.message)
+    }
+
+    if (data.url) {
+        redirect(data.url)
+    }
+}
