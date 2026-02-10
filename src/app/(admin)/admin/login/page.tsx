@@ -1,4 +1,4 @@
-import { login } from './actions'
+import { login, signup } from './actions'
 
 export default function LoginPage() {
     return (
@@ -9,7 +9,8 @@ export default function LoginPage() {
                         管理者ログイン
                     </h2>
                     <p className="mt-2 text-sm text-gray-600">
-                        管理者アカウントでログインしてください
+                        管理者アカウントでログインしてください<br />
+                        (初回のみ新規登録ボタンを押してください)
                     </p>
                 </div>
                 <form className="mt-8 space-y-6">
@@ -52,12 +53,18 @@ export default function LoginPage() {
                         </div>
                     </div>
 
-                    <div>
+                    <div className="flex flex-col gap-3">
                         <button
                             formAction={login}
                             className="group relative flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
                             ログイン
+                        </button>
+                        <button
+                            formAction={signup}
+                            className="group relative flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-indigo-600 ring-1 ring-inset ring-indigo-600 hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                            新規登録
                         </button>
                     </div>
                     {/* Social login buttons will be added here later */}
