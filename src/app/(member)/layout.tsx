@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Orchestra Schedule Manager",
-  description: "Schedule management for orchestra members",
+  title: "楽団スケジュール管理",
+  description: "団員向けスケジュール管理ツール",
 };
 
 export default function RootLayout({

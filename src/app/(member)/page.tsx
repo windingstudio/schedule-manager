@@ -105,7 +105,7 @@ export default function Home() {
   }
 
   const handleLinkUser = async (memberId: string) => {
-    if (!confirm('Are you sure this is you? This cannot be undone easily.')) return
+    if (!confirm('本当にこのメンバーで登録しますか？（後から変更するのは大変です）')) return
 
     const lineUserId = await liff?.getProfile().then(profile => profile.userId)
     if (!lineUserId) return
@@ -116,10 +116,10 @@ export default function Home() {
       .eq('id', memberId)
 
     if (!error) {
-      alert('Successfully linked!')
+      alert('登録が完了しました！')
       window.location.reload()
     } else {
-      alert('Failed to link. Please try again.')
+      alert('登録に失敗しました。もう一度お試しください。')
     }
   }
 
@@ -140,25 +140,25 @@ export default function Home() {
       }, { onConflict: 'schedule_id, member_id' })
 
     if (error) {
-      alert('Failed to update status')
+      alert('ステータスの更新に失敗しました')
       // Revert simplistic...
     }
   }
 
-  if (error) return <div className="p-4 text-red-500">Error: {error}</div>
-  if (loading) return <div className="p-4 text-center">Loading...</div>
+  if (error) return <div className="p-4 text-red-500">エラー: {error}</div>
+  if (loading) return <div className="p-4 text-center">読み込み中...</div>
 
   // Not logged in to LINE (Web browser case)
   if (!isLoggedIn) {
     return (
       <div className="p-4 text-center">
-        <h1 className="text-xl font-bold mb-4">Orchestra Schedule Manager</h1>
-        <p className="mb-4">Please open this in LINE App.</p>
+        <h1 className="text-xl font-bold mb-4">楽団スケジュール管理</h1>
+        <p className="mb-4">LINEアプリで開いてください。</p>
         <button
           onClick={() => liff?.login()}
           className="bg-[#06C755] text-white px-6 py-2 rounded-lg font-bold"
         >
-          LINE Login
+          LINEログイン
         </button>
       </div>
     )
@@ -168,11 +168,11 @@ export default function Home() {
   if (!currentMember) {
     return (
       <div className="p-4">
-        <h1 className="text-xl font-bold mb-4">Welcome! Who are you?</h1>
-        <p className="mb-4 text-sm text-gray-600">First time setup. Please select your name from the list.</p>
+        <h1 className="text-xl font-bold mb-4">ようこそ！</h1>
+        <p className="mb-4 text-sm text-gray-600">初回設定です。リストから自分の名前を選択してください。</p>
 
         {unlinkedMembers.length === 0 ? (
-          <p className="text-red-500">No members found in the list. Please ask admin to add you.</p>
+          <p className="text-red-500">選択可能なメンバーが見つかりません。管理者に問い合わせてください。</p>
         ) : (
           <ul className="divide-y divide-gray-200 bg-white rounded-lg shadow">
             {unlinkedMembers.map(member => (
@@ -185,7 +185,7 @@ export default function Home() {
                   onClick={() => handleLinkUser(member.id)}
                   className="bg-indigo-600 text-white text-xs px-3 py-1 rounded"
                 >
-                  It&apos;s Me
+                  これです
                 </button>
               </li>
             ))}
@@ -200,7 +200,7 @@ export default function Home() {
     <div className="bg-gray-50 min-h-screen pb-10">
       <header className="bg-white shadow p-4 sticky top-0 z-10">
         <div className="flex justify-between items-center">
-          <h1 className="font-bold text-lg">My Schedule</h1>
+          <h1 className="font-bold text-lg">マイスケジュール</h1>
           <div className="text-xs text-right">
             <p>{currentMember.name}</p>
             <p className="text-gray-500">{currentMember.part}</p>
@@ -209,7 +209,7 @@ export default function Home() {
       </header>
 
       <main className="p-4 space-y-4">
-        {schedules.length === 0 && <p className="text-center text-gray-500 mt-10">No upcoming schedules.</p>}
+        {schedules.length === 0 && <p className="text-center text-gray-500 mt-10">予定はありません。</p>}
 
         {schedules.map(schedule => {
           const myStatus = myAttendances[schedule.id]?.status || null
@@ -234,13 +234,13 @@ export default function Home() {
                   onClick={() => handleAttendanceChange(schedule.id, 'attendance')}
                   className={`py-2 px-1 text-sm font-medium rounded ${myStatus === 'attendance' ? 'bg-green-600 text-white' : 'bg-white text-gray-700 border border-gray-300'}`}
                 >
-                  Attend
+                  出席
                 </button>
                 <button
                   onClick={() => handleAttendanceChange(schedule.id, 'absence')}
                   className={`py-2 px-1 text-sm font-medium rounded ${myStatus === 'absence' ? 'bg-red-600 text-white' : 'bg-white text-gray-700 border border-gray-300'}`}
                 >
-                  Absent
+                  欠席
                 </button>
               </div>
               {/* Additional options could be toggleable */}
