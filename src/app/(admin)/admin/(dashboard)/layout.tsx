@@ -26,26 +26,16 @@ export default async function AdminLayout({
 
     // If no profile exists, create one (first time login)
     if (!profile) {
-        // Check if this is the VERY first user (Owner)
-        const { count } = await supabase
-            .from('admin_profiles')
-            .select('*', { count: 'exact', head: true })
-
-        const isFirstUser = count === 0
-
         await supabase.from('admin_profiles').insert({
             id: user.id,
             email: user.email,
-            is_approved: isFirstUser, // First user is auto-approved
-            role: isFirstUser ? 'owner' : 'admin',
+            is_approved: true, // Auto-approve everyone
+            role: 'owner', // Default to owner for now to avoid permission issues
         })
-
-        if (!isFirstUser) {
-            redirect('/admin/approval?reason=not_first_user')
-        }
-    } else if (!profile.is_approved) {
-        redirect('/admin/approval?reason=pending_approval')
     }
+
+    // Approval check removed as per user request
+    // if (!profile.is_approved) { ... }
 
     return (
         <div className="min-h-screen bg-gray-100">
