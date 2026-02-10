@@ -38,41 +38,42 @@ export default async function AdminLayout({
     // if (!profile.is_approved) { ... }
 
     return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white shadow-sm">
+    return (
+        <div className="min-h-screen bg-slate-50">
+            <nav className="bg-slate-900 shadow-lg relative z-10">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
                         <div className="flex">
                             <div className="flex flex-shrink-0 items-center">
-                                <Link href="/admin" className="font-bold text-xl text-gray-800">
-                                    管理者画面
+                                <Link href="/admin" className="font-bold text-xl text-white tracking-wide">
+                                    Orchestra Admin
                                 </Link>
                             </div>
-                            <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+                            <div className="hidden sm:-my-px sm:ml-10 sm:flex sm:space-x-8">
                                 <Link
                                     href="/admin"
-                                    className="inline-flex items-center px-1 pt-1 border-b-2 border-indigo-500 text-sm font-medium text-gray-900"
+                                    className="inline-flex items-center px-1 pt-1 border-b-2 border-indigo-400 text-sm font-medium text-white"
                                 >
                                     ダッシュボード
                                 </Link>
                                 <Link
                                     href="/admin/schedules"
-                                    className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                                    className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-300 hover:text-white hover:border-gray-400 transition-colors duration-200"
                                 >
                                     スケジュール
                                 </Link>
                                 <Link
                                     href="/admin/members"
-                                    className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                                    className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-300 hover:text-white hover:border-gray-400 transition-colors duration-200"
                                 >
-                                    メンバー管理
+                                    名簿管理
                                 </Link>
                             </div>
                         </div>
-                        <div className="flex items-center">
-                            <span className="text-sm text-gray-500 mr-4">{user.email}</span>
+                        <div className="flex items-center gap-4">
+                            <span className="text-sm text-gray-400 font-light">{user.email}</span>
                             <form action="/auth/signout" method="post">
-                                <button className="text-sm text-red-600 hover:text-red-800">
+                                <button className="text-xs border border-gray-600 rounded px-3 py-1.5 text-gray-300 hover:text-white hover:border-white transition-all duration-200">
                                     ログアウト
                                 </button>
                             </form>
