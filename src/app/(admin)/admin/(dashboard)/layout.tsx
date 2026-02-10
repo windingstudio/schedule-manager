@@ -41,10 +41,10 @@ export default async function AdminLayout({
         })
 
         if (!isFirstUser) {
-            redirect('/admin/approval')
+            redirect('/admin/approval?reason=not_first_user')
         }
     } else if (!profile.is_approved) {
-        redirect('/admin/approval')
+        redirect('/admin/approval?reason=pending_approval')
     }
 
     return (
