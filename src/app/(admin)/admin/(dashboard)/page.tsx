@@ -13,7 +13,6 @@ export default async function AdminDashboard() {
         .limit(5)
 
     return (
-    return (
         <div className="space-y-8">
             <header className="mb-8">
                 <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-slate-900">
