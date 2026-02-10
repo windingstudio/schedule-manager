@@ -38,7 +38,6 @@ export default async function AdminLayout({
     // if (!profile.is_approved) { ... }
 
     return (
-    return (
         <div className="min-h-screen bg-slate-50">
             <nav className="bg-slate-900 shadow-lg relative z-10">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

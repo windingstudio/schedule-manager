@@ -41,7 +41,7 @@ export default async function AdminDashboard() {
                                     </dt>
                                     <dd>
                                         <div className="text-lg font-bold text-gray-900 mt-1">
-                                            {schedules && schedules.length > 0 ? (
+                                            {schedules && schedules[0] ? (
                                                 <>
                                                     {new Date(schedules[0].date).toLocaleDateString()}<br />
                                                     <span className="text-sm font-normal text-gray-500 mt-1 block">
