@@ -11,7 +11,8 @@ export async function createMember(formData: FormData) {
     const part = formData.get('part') as string
 
     if (!name || !part) {
-        return { error: 'Name and Part are required' }
+        // return { error: 'Name and Part are required' }
+        throw new Error('Name and Part are required')
     }
 
     const { error } = await supabase.from('members').insert({
@@ -21,7 +22,8 @@ export async function createMember(formData: FormData) {
 
     if (error) {
         console.error('Error creating member:', error)
-        return { error: 'Failed to create member' }
+        // return { error: 'Failed to create member' }
+        throw new Error('Failed to create member')
     }
 
     revalidatePath('/admin/members')
@@ -34,7 +36,8 @@ export async function deleteMember(id: string) {
 
     if (error) {
         console.error('Error deleting member:', error)
-        return { error: 'Failed to delete member' }
+        // return { error: 'Failed to delete member' }
+        throw new Error('Failed to delete member')
     }
 
     revalidatePath('/admin/members')

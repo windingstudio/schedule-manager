@@ -17,7 +17,7 @@ export async function createSchedule(formData: FormData) {
     // Simple validation
     if (!date || !startTime || !endTime || !place) {
         // In a real app, handle error better
-        return { error: 'Missing required fields' }
+        throw new Error('Missing required fields')
     }
 
     const { error } = await supabase.from('schedules').insert({
@@ -31,7 +31,7 @@ export async function createSchedule(formData: FormData) {
 
     if (error) {
         console.error('Error creating schedule:', error)
-        return { error: 'Failed to create schedule' }
+        throw new Error('Failed to create schedule')
     }
 
     revalidatePath('/admin/schedules')
@@ -48,7 +48,8 @@ export async function deleteSchedule(id: string) {
 
     if (error) {
         console.error('Error deleting schedule:', error)
-        return { error: 'Failed to delete schedule' }
+        // return { error: 'Failed to delete schedule' }
+        throw new Error('Failed to delete schedule')
     }
 
     revalidatePath('/admin/schedules')
