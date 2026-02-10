@@ -229,6 +229,18 @@ export default function Home() {
     )
   }
 
+  const formatDate = (dateStr: string) => {
+    try {
+      if (!dateStr) return '日付未定'
+      const d = new Date(dateStr)
+      if (isNaN(d.getTime())) return '日付不明'
+      return d.toLocaleDateString('ja-JP', { month: 'numeric', day: 'numeric', weekday: 'short' })
+    } catch (e) {
+      console.error('Date parsing error', e)
+      return dateStr
+    }
+  }
+
   // Main Dashboard
   return (
     <div className="bg-gray-50 min-h-screen pb-24">
@@ -240,7 +252,7 @@ export default function Home() {
         <div className="flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
           <UserCircleIcon className="w-4 h-4 text-gray-400" />
           <div className="text-xs text-right">
-            <span className="font-medium text-gray-900 block">{currentMember.name}</span>
+            <span className="font-medium text-gray-900 block">{currentMember?.name || 'ゲスト'}</span>
           </div>
         </div>
       </header>
@@ -264,12 +276,12 @@ export default function Home() {
                 <div className="flex justify-between items-start mb-3">
                   <div className="flex flex-col">
                     <span className="text-2xl font-bold text-gray-900 tracking-tight">
-                      {new Date(schedule.date).toLocaleDateString('ja-JP', { month: 'numeric', day: 'numeric', weekday: 'short' })}
+                      {formatDate(schedule.date)}
                     </span>
                     <div className="flex items-center text-gray-600 mt-1">
                       <ClockIcon className="w-4 h-4 mr-1.5 text-gray-400" />
                       <span className="text-sm font-medium font-mono">
-                        {schedule.start_time.slice(0, 5)} - {schedule.end_time.slice(0, 5)}
+                        {(schedule.start_time || '').slice(0, 5)} - {(schedule.end_time || '').slice(0, 5)}
                       </span>
                     </div>
                   </div>
