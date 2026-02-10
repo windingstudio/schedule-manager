@@ -98,6 +98,7 @@ export default function LoginPage({
                             We already added loginWithSocial to actions.ts.
                         */}
                         <button
+                            formNoValidate
                             formAction={async () => {
                                 'use server'
                                 await loginWithSocial('google')
