@@ -11,7 +11,7 @@ export default async function MembersPage() {
         .order('name', { ascending: true })
 
     // Group by part
-    const membersByPart: Record<string, typeof members> = {}
+    const membersByPart: Record<string, NonNullable<typeof members>> = {}
     members?.forEach((member) => {
         if (!membersByPart[member.part]) {
             membersByPart[member.part] = []
