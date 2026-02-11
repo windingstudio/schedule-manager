@@ -47,9 +47,6 @@ export default function MemberDashboard() {
 
     const supabase = createClient()
 
-    // Debug log to verify version on client
-    console.log('--- MemberDashboard v3 (Deploy) loaded ---')
-
     useEffect(() => {
         const checkUserLink = async () => {
             setLoading(true)
@@ -271,7 +268,7 @@ export default function MemberDashboard() {
             <header className="bg-white shadow-sm px-4 py-3 sticky top-0 z-20 flex justify-between items-center backdrop-blur-md bg-white/90 supports-[backdrop-filter]:bg-white/60">
                 <h1 className="font-bold text-lg text-gray-900 flex items-center gap-2">
                     <CalendarIcon className="w-5 h-5 text-indigo-600" />
-                    マイスケジュール (v3)
+                    マイスケジュール
                 </h1>
                 <div className="flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
                     <UserCircleIcon className="w-4 h-4 text-gray-400" />
@@ -362,7 +359,7 @@ export default function MemberDashboard() {
                                     <textarea
                                         id={`comment-${schedule.id}`}
                                         placeholder="遅刻の理由や連絡事項があれば入力..."
-                                        className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-white"
+                                        className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-white text-gray-900"
                                         rows={2}
                                         value={myAttendances[schedule.id]?.comment || ''}
                                         onChange={(e) => {

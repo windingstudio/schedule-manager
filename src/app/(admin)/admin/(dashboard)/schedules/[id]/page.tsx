@@ -207,7 +207,7 @@ export default async function ScheduleDetailPage({ params }: { params: Promise<{
                                                                 {statusText}
                                                             </span>
                                                         </td>
-                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{attendance?.comment}</td>
+                                                        <td className="min-w-[200px] px-3 py-4 text-sm text-gray-500 break-words whitespace-normal">{attendance?.comment}</td>
                                                     </tr>
                                                 )
                                             })}
