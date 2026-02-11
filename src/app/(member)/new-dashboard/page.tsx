@@ -91,10 +91,16 @@ export default function Home() {
 
     const fetchSchedules = async (memberId: string) => {
         // Fetch future schedules
+        const today = new Date()
+        const y = today.getFullYear()
+        const m = String(today.getMonth() + 1).padStart(2, '0')
+        const d = String(today.getDate()).padStart(2, '0')
+        const todayStr = `${y}-${m}-${d}`
+
         const { data: scheds } = await supabase
             .from('schedules')
             .select('*')
-            .gte('date', new Date().toISOString())
+            .gte('date', todayStr)
             .order('date', { ascending: true })
 
         if (scheds) setSchedules(scheds)

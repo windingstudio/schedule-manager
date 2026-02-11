@@ -31,11 +31,17 @@ export async function signup(formData: FormData) {
     const email = formData.get('email') as string
     const password = formData.get('password') as string
 
+    // Determine the base URL for the redirect
+    let siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+    if (process.env.VERCEL_URL) {
+        siteUrl = `https://${process.env.VERCEL_URL}`
+    }
+
     const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-            emailRedirectTo: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/callback`,
+            emailRedirectTo: `${siteUrl}/auth/callback`,
         }
     })
 

@@ -82,7 +82,7 @@ export default async function MembersPage() {
                                                         )}
                                                     </div>
                                                     <p className="mt-1 flex text-xs leading-5 text-gray-500">
-                                                        {member.age ? `${member.age}歳` : ''}
+                                                        {member.birthday ? `${calculateAge(member.birthday)}歳` : ''}
                                                         {member.note && ` ・ ${member.note}`}
                                                     </p>
                                                 </div>
@@ -105,4 +105,15 @@ export default async function MembersPage() {
             </div>
         </div>
     )
+}
+
+function calculateAge(birthday: string) {
+    const birthDate = new Date(birthday)
+    const today = new Date()
+    let age = today.getFullYear() - birthDate.getFullYear()
+    const m = today.getMonth() - birthDate.getMonth()
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--
+    }
+    return age
 }
