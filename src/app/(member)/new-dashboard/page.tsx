@@ -34,10 +34,7 @@ type Attendance = {
     comment: string
 }
 
-// Force dynamic rendering to prevent aggressive caching
-export const dynamic = 'force-dynamic'
-
-export default function MemberDashboard() {
+export default function Home() {
     const { liff, isLoggedIn, error } = useLiff()
     const [loading, setLoading] = useState(true)
     const [currentMember, setCurrentMember] = useState<Member | null>(null)
@@ -46,9 +43,6 @@ export default function MemberDashboard() {
     const [myAttendances, setMyAttendances] = useState<Record<string, Attendance>>({})
 
     const supabase = createClient()
-
-    // Debug log to verify version on client
-    console.log('--- MemberDashboard v3 (Deploy) loaded ---')
 
     useEffect(() => {
         const checkUserLink = async () => {
@@ -192,13 +186,13 @@ export default function MemberDashboard() {
     // Not logged in to LINE (Web browser or external browser)
     if (!isLoggedIn) {
         return (
-            <div className="flex min-h-screen flex-col items-center justify-center p-6 bg-gray-50 text-center">
+            <div className="flex min-h-screen flex-col items-center justify-center p-6 bg-red-100 text-center">
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
                     <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8 text-green-600">
                         <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 13.41L17.59 5.82L19 7.23L10 17Z" />
                     </svg>
                 </div>
-                <h1 className="text-2xl font-bold mb-2 text-gray-900">楽団スケジュール管理</h1>
+                <h1 className="text-2xl font-bold mb-2 text-gray-900">楽団スケジュール管理(New)</h1>
                 <p className="mb-8 text-gray-600">LINEアプリからアクセスしてください。</p>
                 <button
                     onClick={() => liff?.login()}
@@ -213,9 +207,9 @@ export default function MemberDashboard() {
     // Logged in but not linked
     if (!currentMember) {
         return (
-            <div className="min-h-screen bg-gray-50 p-4 pb-20">
+            <div className="min-h-screen bg-red-100 p-4 pb-20">
                 <header className="mb-6 pt-4">
-                    <h1 className="text-2xl font-bold text-gray-900">ようこそ！</h1>
+                    <h1 className="text-2xl font-bold text-gray-900">ようこそ(New)！</h1>
                     <p className="text-gray-600 mt-2">初回設定を行います。<br />リストから自分の名前を選択してください。</p>
                 </header>
 
@@ -267,11 +261,11 @@ export default function MemberDashboard() {
 
     // Main Dashboard
     return (
-        <div className="bg-gray-50 min-h-screen pb-24">
+        <div className="bg-red-500 min-h-screen pb-24">
             <header className="bg-white shadow-sm px-4 py-3 sticky top-0 z-20 flex justify-between items-center backdrop-blur-md bg-white/90 supports-[backdrop-filter]:bg-white/60">
                 <h1 className="font-bold text-lg text-gray-900 flex items-center gap-2">
                     <CalendarIcon className="w-5 h-5 text-indigo-600" />
-                    マイスケジュール (v3)
+                    マイスケジュール (New)
                 </h1>
                 <div className="flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
                     <UserCircleIcon className="w-4 h-4 text-gray-400" />

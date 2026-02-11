@@ -50,56 +50,53 @@ export default async function MembersPage() {
                 {ORDERED_PARTS.map((part) => {
                     const partMembers = membersByPart[part] || []
 
+                    // Skip empty sections
+                    if (partMembers.length === 0) return null
+
                     return (
                         <div key={part} className="mb-8">
                             <h3 className="text-lg font-medium leading-6 text-gray-900 border-b border-gray-200 pb-2 mb-4">
                                 {part} <span className="text-sm text-gray-500 font-normal ml-2">({partMembers.length}名)</span>
                             </h3>
                             <div className="bg-white shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                                {/* Desktop Table / Mobile Cards */}
+                                {/* Component List */}
                                 <ul className="divide-y divide-gray-200">
-                                    {partMembers.length > 0 ? (
-                                        partMembers.map((member) => (
-                                            <li key={member.id} className="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 sm:px-6">
-                                                <div className="flex min-w-0 gap-x-4 items-center">
-                                                    <Link href={`/admin/members/${member.id}/edit`} className="absolute inset-0" />
-                                                    <div className="min-w-0 flex-auto">
-                                                        <div className="flex items-center gap-2">
-                                                            <p className="text-sm font-semibold leading-6 text-gray-900">
-                                                                {member.name}
-                                                            </p>
-                                                            {member.role && (
-                                                                <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                                                                    {member.role}
-                                                                </span>
-                                                            )}
-                                                            {member.is_on_leave && (
-                                                                <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
-                                                                    休隊中
-                                                                </span>
-                                                            )}
-                                                        </div>
-                                                        <p className="mt-1 flex text-xs leading-5 text-gray-500">
-                                                            {member.age ? `${member.age}歳` : ''}
-                                                            {member.note && ` ・ ${member.note}`}
+                                    {partMembers.map((member) => (
+                                        <li key={member.id} className="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 sm:px-6">
+                                            <div className="flex min-w-0 gap-x-4 items-center">
+                                                <Link href={`/admin/members/${member.id}/edit`} className="absolute inset-0" />
+                                                <div className="min-w-0 flex-auto">
+                                                    <div className="flex items-center gap-2">
+                                                        <p className="text-sm font-semibold leading-6 text-gray-900">
+                                                            {member.name}
                                                         </p>
+                                                        {member.role && (
+                                                            <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                                                                {member.role}
+                                                            </span>
+                                                        )}
+                                                        {member.is_on_leave && (
+                                                            <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+                                                                休隊中
+                                                            </span>
+                                                        )}
                                                     </div>
+                                                    <p className="mt-1 flex text-xs leading-5 text-gray-500">
+                                                        {member.age ? `${member.age}歳` : ''}
+                                                        {member.note && ` ・ ${member.note}`}
+                                                    </p>
                                                 </div>
-                                                <div className="flex shrink-0 items-center gap-x-4">
-                                                    <div className="hidden sm:flex sm:flex-col sm:items-end">
-                                                        <p className="text-xs text-gray-500">LINE: {member.line_user_id ? '連携済' : '未連携'}</p>
-                                                    </div>
-                                                    <svg className="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                                        <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
-                                                    </svg>
+                                            </div>
+                                            <div className="flex shrink-0 items-center gap-x-4">
+                                                <div className="hidden sm:flex sm:flex-col sm:items-end">
+                                                    <p className="text-xs text-gray-500">LINE: {member.line_user_id ? '連携済' : '未連携'}</p>
                                                 </div>
-                                            </li>
-                                        ))
-                                    ) : (
-                                        <li className="px-4 py-5 text-sm text-gray-500 text-center italic">
-                                            所属メンバーはいません
+                                                <svg className="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
+                                                </svg>
+                                            </div>
                                         </li>
-                                    )}
+                                    ))}
                                 </ul>
                             </div>
                         </div>

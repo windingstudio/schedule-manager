@@ -34,10 +34,7 @@ type Attendance = {
     comment: string
 }
 
-// Force dynamic rendering to prevent aggressive caching
-export const dynamic = 'force-dynamic'
-
-export default function MemberDashboard() {
+export default function Home() {
     const { liff, isLoggedIn, error } = useLiff()
     const [loading, setLoading] = useState(true)
     const [currentMember, setCurrentMember] = useState<Member | null>(null)
@@ -46,9 +43,6 @@ export default function MemberDashboard() {
     const [myAttendances, setMyAttendances] = useState<Record<string, Attendance>>({})
 
     const supabase = createClient()
-
-    // Debug log to verify version on client
-    console.log('--- MemberDashboard v3 (Deploy) loaded ---')
 
     useEffect(() => {
         const checkUserLink = async () => {
@@ -267,11 +261,11 @@ export default function MemberDashboard() {
 
     // Main Dashboard
     return (
-        <div className="bg-gray-50 min-h-screen pb-24">
+        <div className="bg-red-500 min-h-screen pb-24">
             <header className="bg-white shadow-sm px-4 py-3 sticky top-0 z-20 flex justify-between items-center backdrop-blur-md bg-white/90 supports-[backdrop-filter]:bg-white/60">
                 <h1 className="font-bold text-lg text-gray-900 flex items-center gap-2">
                     <CalendarIcon className="w-5 h-5 text-indigo-600" />
-                    マイスケジュール (v3)
+                    マイスケジュール (Dev)
                 </h1>
                 <div className="flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
                     <UserCircleIcon className="w-4 h-4 text-gray-400" />

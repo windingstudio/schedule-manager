@@ -23,7 +23,7 @@ export default function AdminRootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en" className="h-full bg-gray-100">
+        <html lang="en" className="h-full bg-gray-100" suppressHydrationWarning translate="no">
             <body className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
                 {children}
             </body>
