@@ -40,8 +40,8 @@ export default async function ScheduleDetailPage({ params }: { params: Promise<{
         'トランペット', 'ホルン', 'トロンボーン', 'ユーフォニアム', 'チューバ',
         'コントラバス', 'パーカッション', '新入隊員'
     ]
-    const OFFICER_ROLES = ['バンド長', '副バンド長', '組織主任', '音楽主任']
-    const PART_LEADER_ROLES = ['パート長', '副パート長']
+    const OFFICER_ROLES = ['バンド長', '副バンド長', '組織主任', '音楽主任', 'パート長', '副パート長']
+    const PART_LEADER_ROLES = ['パート長', '副パート長'] // Kept for reference or fallback
 
     // Grouping
     const membersByPart: Record<string, NonNullable<typeof members>> = {}
@@ -142,82 +142,94 @@ export default async function ScheduleDetailPage({ params }: { params: Promise<{
                 </div>
             </div>
 
-            <div className="flow-root">
-                {DISPLAY_SECTIONS.map((section) => {
-                    let sectionMembers: typeof members = []
+            <div className="flex flex-col">
+                <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                        <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                            <table className="min-w-full divide-y divide-gray-300">
+                                <thead className="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 w-1/4">名前</th>
+                                        <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 w-24">回答</th>
+                                        <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">コメント</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-200 bg-white">
+                                    {DISPLAY_SECTIONS.map((section) => {
+                                        let sectionMembers: typeof members = []
 
-                    if (section === '役職・運営') {
-                        sectionMembers = officerMembers
-                    } else {
-                        sectionMembers = membersByPart[section] || []
-                        if (!membersByPart[section]) return null // Skip keys not in map logic above if strictly following arrays, but safe to default empty
-                    }
+                                        if (section === '役職・運営') {
+                                            sectionMembers = officerMembers
+                                        } else {
+                                            sectionMembers = membersByPart[section] || []
+                                            if (!membersByPart[section]) return null
+                                        }
 
-                    if (sectionMembers.length === 0) return null
+                                        if (sectionMembers.length === 0) return null
 
-                    return (
-                        <div key={section} className="mb-8">
-                            <h3 className="text-lg font-medium leading-6 text-gray-900 border-b border-gray-200 pb-2 mb-4">{section}</h3>
-                            <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                                <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                                    <table className="min-w-full divide-y divide-gray-300">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">名前</th>
-                                                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">回答</th>
-                                                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">コメント</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="divide-y divide-gray-200 bg-white">
-                                            {sectionMembers.map(member => {
-                                                const attendance = attendanceMap[member.id]
-                                                const status = attendance?.status || 'unresponded'
-                                                let statusColor = 'bg-gray-100 text-gray-800'
-                                                let statusText = '未回答'
+                                        return (
+                                            <>
+                                                <tr key={section} className="bg-gray-50">
+                                                    <th
+                                                        colSpan={3}
+                                                        scope="colgroup"
+                                                        className="py-2 pl-4 pr-3 text-left text-sm font-bold text-gray-900 sm:pl-6 bg-gray-100 border-t border-b border-gray-200"
+                                                    >
+                                                        {section}
+                                                    </th>
+                                                </tr>
+                                                {sectionMembers.map(member => {
+                                                    const attendance = attendanceMap[member.id]
+                                                    const status = attendance?.status || 'unresponded'
+                                                    let statusColor = 'bg-gray-100 text-gray-800'
+                                                    let statusText = '未回答'
 
-                                                if (status === 'attendance') {
-                                                    statusColor = 'bg-green-100 text-green-800'
-                                                    statusText = '出席'
-                                                }
-                                                if (status === 'absence') {
-                                                    statusColor = 'bg-red-100 text-red-800'
-                                                    statusText = '欠席'
-                                                }
-                                                if (status === 'late') {
-                                                    statusColor = 'bg-yellow-100 text-yellow-800'
-                                                    statusText = '遅刻'
-                                                }
-                                                if (status === 'leave_early') {
-                                                    statusColor = 'bg-blue-100 text-blue-800'
-                                                    statusText = '早退'
-                                                }
+                                                    if (status === 'attendance') {
+                                                        statusColor = 'bg-green-100 text-green-800'
+                                                        statusText = '出席'
+                                                    }
+                                                    if (status === 'absence') {
+                                                        statusColor = 'bg-red-100 text-red-800'
+                                                        statusText = '欠席'
+                                                    }
+                                                    if (status === 'late') {
+                                                        statusColor = 'bg-yellow-100 text-yellow-800'
+                                                        statusText = '遅刻'
+                                                    }
+                                                    if (status === 'leave_early') {
+                                                        statusColor = 'bg-blue-100 text-blue-800'
+                                                        statusText = '早退'
+                                                    }
 
-                                                return (
-                                                    <tr key={member.id}>
-                                                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                                                            {member.name}
-                                                            {member.role && (
-                                                                <span className="ml-2 inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                                                                    {member.role}
+                                                    return (
+                                                        <tr key={member.id}>
+                                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                                                {member.name}
+                                                                {member.role && (
+                                                                    <span className="ml-2 inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                                                                        {member.role}
+                                                                    </span>
+                                                                )}
+                                                            </td>
+                                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                                                <span className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${statusColor}`}>
+                                                                    {statusText}
                                                                 </span>
-                                                            )}
-                                                        </td>
-                                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                                            <span className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${statusColor}`}>
-                                                                {statusText}
-                                                            </span>
-                                                        </td>
-                                                        <td className="min-w-[200px] px-3 py-4 text-sm text-gray-500 break-words whitespace-normal">{attendance?.comment}</td>
-                                                    </tr>
-                                                )
-                                            })}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                                            </td>
+                                                            <td className="min-w-[200px] px-3 py-4 text-sm text-gray-500 break-words whitespace-normal">
+                                                                {attendance?.comment}
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })}
+                                            </>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
                         </div>
-                    )
-                })}
+                    </div>
+                </div>
             </div>
         </div>
     )
