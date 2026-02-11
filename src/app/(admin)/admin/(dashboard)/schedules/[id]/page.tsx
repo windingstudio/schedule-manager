@@ -1,4 +1,5 @@
 import { createClient } from '@/utils/supabase/server'
+import RemindButton from './RemindButton'
 
 export default async function ScheduleDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params
@@ -128,6 +129,10 @@ export default async function ScheduleDetailPage({ params }: { params: Promise<{
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div className="flex justify-end mb-4">
+                <RemindButton scheduleId={id} unrespondedCount={unknownCount} />
             </div>
 
             {/* Stats Cards */}
