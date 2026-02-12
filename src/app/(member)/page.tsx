@@ -101,10 +101,13 @@ export default function MemberDashboard() {
 
     const fetchSchedules = async (memberId: string) => {
         // Fetch future schedules
+        const today = new Date()
+        today.setHours(0, 0, 0, 0)
+
         const { data: scheds } = await supabase
             .from('schedules')
             .select('*')
-            .gte('date', new Date().toISOString())
+            .gte('date', today.toISOString())
             .order('date', { ascending: true })
 
         if (scheds) setSchedules(scheds)
