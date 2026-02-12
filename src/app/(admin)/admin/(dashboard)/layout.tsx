@@ -45,7 +45,7 @@ export default async function AdminLayout({
                         <div className="flex">
                             <div className="flex flex-shrink-0 items-center">
                                 <Link href="/admin" className="font-bold text-xl text-white tracking-wide">
-                                    Orchestra Admin
+                                    １シンAdmin
                                 </Link>
                             </div>
                             <div className="hidden sm:-my-px sm:ml-10 sm:flex sm:space-x-8">
@@ -70,7 +70,7 @@ export default async function AdminLayout({
                             </div>
                         </div>
                         <div className="flex items-center gap-4">
-                            <span className="text-sm text-gray-400 font-light">{user.email}</span>
+                            <span className="text-sm text-gray-400 font-light hidden sm:block">{user.email}</span>
                             <form action="/auth/signout" method="post">
                                 <button className="text-xs border border-gray-600 rounded px-3 py-1.5 text-gray-300 hover:text-white hover:border-white transition-all duration-200">
                                     ログアウト
