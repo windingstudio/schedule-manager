@@ -67,24 +67,22 @@ export default async function MembersPage() {
                                         <li key={member.id} className="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 sm:px-6">
                                             <div className="flex min-w-0 gap-x-4 items-center flex-1">
                                                 <Link href={`/admin/members/${member.id}/edit`} className="absolute inset-0" />
-                                                <div className="min-w-0 flex-auto flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-                                                    <div className="flex items-center gap-2">
-                                                        <p className="text-sm font-semibold leading-6 text-gray-900">
-                                                            {member.name}
-                                                        </p>
-                                                        {member.role && (
-                                                            <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
-                                                                {member.role}
-                                                            </span>
-                                                        )}
-                                                        {member.is_on_leave && (
-                                                            <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
-                                                                休隊中
-                                                            </span>
-                                                        )}
-                                                    </div>
+                                                <div className="min-w-0 flex-auto flex flex-wrap items-center gap-x-3 gap-y-1">
+                                                    <p className="text-sm font-semibold leading-6 text-gray-900">
+                                                        {member.name}
+                                                    </p>
+                                                    {member.role && (
+                                                        <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                                                            {member.role}
+                                                        </span>
+                                                    )}
+                                                    {member.is_on_leave && (
+                                                        <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+                                                            休隊中
+                                                        </span>
+                                                    )}
 
-                                                    <div className="flex items-center gap-3 text-xs text-gray-500 sm:ml-2">
+                                                    <div className="flex items-center gap-3 text-xs text-gray-500">
                                                         {member.birthday && (
                                                             <span>{calculateAge(member.birthday)}歳</span>
                                                         )}
