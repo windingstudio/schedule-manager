@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "楽団スケジュール管理",
-  description: "団員向けスケジュール管理ツール",
+  description: "隊員向けスケジュール管理ツール",
 };
 
 export default function RootLayout({

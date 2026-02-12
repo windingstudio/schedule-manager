@@ -33,9 +33,9 @@ export default async function MembersPage() {
             <BackButton />
             <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
-                    <h1 className="text-2xl font-semibold leading-6 text-gray-900">団員名簿</h1>
+                    <h1 className="text-2xl font-semibold leading-6 text-gray-900">隊員名簿</h1>
                     <p className="mt-2 text-sm text-gray-700">
-                        現在登録されている団員の一覧です。
+                        現在登録されている隊員の一覧です。
                     </p>
                 </div>
                 <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
@@ -43,7 +43,7 @@ export default async function MembersPage() {
                         href="/admin/members/new"
                         className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
-                        団員を追加
+                        隊員を追加
                     </Link>
                 </div>
             </div>
