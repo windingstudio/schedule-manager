@@ -1,5 +1,6 @@
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
+import BackButton from '@/components/admin/BackButton'
 
 export default async function MembersPage() {
     const supabase = await createClient()
@@ -29,6 +30,7 @@ export default async function MembersPage() {
 
     return (
         <div>
+            <BackButton />
             <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
                     <h1 className="text-2xl font-semibold leading-6 text-gray-900">団員名簿</h1>
@@ -63,9 +65,9 @@ export default async function MembersPage() {
                                 <ul className="divide-y divide-gray-200">
                                     {partMembers.map((member) => (
                                         <li key={member.id} className="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 sm:px-6">
-                                            <div className="flex min-w-0 gap-x-4 items-center">
+                                            <div className="flex min-w-0 gap-x-4 items-center flex-1">
                                                 <Link href={`/admin/members/${member.id}/edit`} className="absolute inset-0" />
-                                                <div className="min-w-0 flex-auto">
+                                                <div className="min-w-0 flex-auto flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                                                     <div className="flex items-center gap-2">
                                                         <p className="text-sm font-semibold leading-6 text-gray-900">
                                                             {member.name}
@@ -81,10 +83,22 @@ export default async function MembersPage() {
                                                             </span>
                                                         )}
                                                     </div>
-                                                    <p className="mt-1 flex text-xs leading-5 text-gray-500">
-                                                        {member.birthday ? `${calculateAge(member.birthday)}歳` : ''}
-                                                        {member.note && ` ・ ${member.note}`}
-                                                    </p>
+
+                                                    <div className="flex items-center gap-3 text-xs text-gray-500 sm:ml-2">
+                                                        {member.birthday && (
+                                                            <span>{calculateAge(member.birthday)}歳</span>
+                                                        )}
+                                                        {member.residence && (
+                                                            <span className="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 text-gray-600">
+                                                                {member.residence}
+                                                            </span>
+                                                        )}
+                                                        {member.note && (
+                                                            <span className="truncate max-w-xs text-gray-400">
+                                                                {member.note}
+                                                            </span>
+                                                        )}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="flex shrink-0 items-center gap-x-4">

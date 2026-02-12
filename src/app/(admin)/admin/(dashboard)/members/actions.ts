@@ -13,6 +13,7 @@ export async function createMember(formData: FormData) {
     const is_on_leave = formData.get('is_on_leave') === 'on'
     const birthday = formData.get('birthday') as string || null
     const note = formData.get('note') as string
+    const residence = formData.get('residence') as string
 
     if (!name || !part) {
         throw new Error('Name and Part are required')
@@ -25,6 +26,7 @@ export async function createMember(formData: FormData) {
         is_on_leave,
         birthday: birthday || null, // Handle empty string as null
         note,
+        residence,
     })
 
     if (error) {
@@ -45,6 +47,7 @@ export async function updateMember(id: string, formData: FormData) {
     const is_on_leave = formData.get('is_on_leave') === 'on'
     const birthday = formData.get('birthday') as string || null
     const note = formData.get('note') as string
+    const residence = formData.get('residence') as string
 
     if (!name || !part) {
         throw new Error('Name and Part are required')
@@ -57,6 +60,7 @@ export async function updateMember(id: string, formData: FormData) {
         is_on_leave,
         birthday: birthday || null,
         note,
+        residence,
     }).eq('id', id)
 
     if (error) {

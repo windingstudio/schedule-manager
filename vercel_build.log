@@ -1,0 +1,80 @@
+Vercel CLI 50.15.1
+WARN! Build not running on Vercel. System environment variables will not be available.
+WARNING: You should not upload the `.next` directory.
+Installing dependencies...
+
+up to date in 1s
+
+143 packages are looking for funding
+  run `npm fund` for details
+Detected Next.js version: 16.1.6
+Running "npm run build"
+
+> schedule-manager@0.1.0 build
+> next build
+
+笆ｲ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+笨・Compiled successfully in 6.0s
+  Running TypeScript ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/17) ...
+  Generating static pages using 7 workers (4/17) 
+  Generating static pages using 7 workers (8/17) 
+  Generating static pages using 7 workers (12/17) 
+笨・Generating static pages using 7 workers (17/17) in 500.8ms
+  Finalizing page optimization ...
+
+Route (app)
+笏・笳・/
+笏・笳・/_not-found
+笏・ﾆ・/admin
+笏・笳・/admin/approval
+笏・笳・/admin/login
+笏・ﾆ・/admin/members
+笏・ﾆ・/admin/members/[id]/edit
+笏・ﾆ・/admin/members/new
+笏・ﾆ・/admin/schedules
+笏・ﾆ・/admin/schedules/[id]
+笏・ﾆ・/admin/schedules/new
+笏・ﾆ・/api/remind
+笏・ﾆ・/auth/callback
+笏・ﾆ・/auth/signout
+笏・笳・/dashboard
+笏・笳・/debug
+笏・笳・/new-dashboard
+
+
+ﾆ・Proxy (Middleware)
+
+笳・ (Static)   prerendered as static content
+ﾆ・ (Dynamic)  server-rendered on demand
+
+Tracing initial Next.js server files due to missing build trace: 12.435s
+Traced Next.js server files in: 13.185s
+Tracing entries due to missing build traces:
+[
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/(admin)/admin/(dashboard)/members/[id]/edit/page.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/(admin)/admin/(dashboard)/members/new/page.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/(admin)/admin/(dashboard)/members/page.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/(admin)/admin/(dashboard)/page.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/(admin)/admin/(dashboard)/schedules/[id]/page.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/(admin)/admin/(dashboard)/schedules/new/page.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/(admin)/admin/(dashboard)/schedules/page.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/(admin)/admin/approval/page.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/(admin)/admin/login/page.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/(member)/dashboard/page.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/(member)/debug/page.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/(member)/new-dashboard/page.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/(member)/page.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/_global-error/page.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/_not-found/page.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/api/remind/route.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/auth/callback/route.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/auth/signout/route.js",
+  "C:/Users/kajim/Documents/pj/schedule-manager/.next/server/app/favicon.ico/route.js"
+]: 43.022ms
+Created all serverless functions in: 76.636ms
+Error: Unable to find lambda for route: /admin/approval

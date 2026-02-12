@@ -1,4 +1,5 @@
 import { createMember } from '../actions'
+import BackButton from '@/components/admin/BackButton'
 
 const PARTS = [
     'フルート', 'オーボエ', 'ファゴット', 'クラリネット', 'サックス',
@@ -13,6 +14,7 @@ const ROLES = [
 export default function NewMemberPage() {
     return (
         <div className="max-w-lg mx-auto">
+            <BackButton href="/admin/members" />
             <h1 className="text-2xl font-bold mb-6 text-gray-900">隊員の新規登録</h1>
             <form action={createMember} className="space-y-6 bg-white p-6 rounded-lg shadow">
                 <div>
@@ -73,6 +75,19 @@ export default function NewMemberPage() {
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-3"
                             />
                         </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label htmlFor="residence" className="block text-sm font-medium leading-6 text-gray-900">居住地</label>
+                    <div className="mt-2">
+                        <input
+                            type="text"
+                            name="residence"
+                            id="residence"
+                            placeholder="例：中央区、明石市"
+                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 px-3"
+                        />
                     </div>
                 </div>
 
