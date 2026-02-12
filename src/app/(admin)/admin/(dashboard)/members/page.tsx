@@ -82,21 +82,20 @@ export default async function MembersPage() {
                                                         </span>
                                                     )}
 
-                                                    <div className="flex items-center gap-3 text-xs text-gray-500">
-                                                        {member.birthday && (
-                                                            <span>{calculateAge(member.birthday)}歳</span>
-                                                        )}
-                                                        {member.residence && (
-                                                            <span className="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 text-gray-600">
-                                                                {member.residence}
-                                                            </span>
-                                                        )}
-                                                        {member.note && (
-                                                            <span className="truncate max-w-xs text-gray-400">
-                                                                {member.note}
-                                                            </span>
-                                                        )}
-                                                    </div>
+                                                    {/* Flattened structure: items are direct children */}
+                                                    {member.birthday && (
+                                                        <span className="text-xs text-gray-500">{calculateAge(member.birthday)}歳</span>
+                                                    )}
+                                                    {member.residence && (
+                                                        <span className="inline-flex items-center rounded bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
+                                                            {member.residence}
+                                                        </span>
+                                                    )}
+                                                    {member.note && (
+                                                        <span className="truncate max-w-xs text-xs text-gray-400">
+                                                            {member.note}
+                                                        </span>
+                                                    )}
                                                 </div>
                                             </div>
                                             <div className="flex shrink-0 items-center gap-x-4">
