@@ -30,7 +30,7 @@ export default async function ScheduleDetailPage({ params }: { params: Promise<{
         .eq('schedule_id', id)
 
     // Map attendances by member_id
-    const attendanceMap: Record<string, { status: string; comment: string }> = {}
+    const attendanceMap: Record<string, { status: string; comment: string; returned_home_at?: string }> = {}
     attendances?.forEach(a => {
         attendanceMap[a.member_id] = a
     })
@@ -213,6 +213,11 @@ export default async function ScheduleDetailPage({ params }: { params: Promise<{
                                                                 {member.role && (
                                                                     <span className="ml-2 inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
                                                                         {member.role}
+                                                                    </span>
+                                                                )}
+                                                                {attendance?.returned_home_at && (
+                                                                    <span className="ml-2 inline-flex items-center rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20" title={new Date(attendance.returned_home_at).toLocaleString()}>
+                                                                        🏠 帰宅
                                                                     </span>
                                                                 )}
                                                             </td>

@@ -14,14 +14,13 @@ export default async function AdminDashboard() {
 
     return (
         <div className="space-y-8">
-            <header className="mb-8">
-                <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-slate-900">
-                    ダッシュボード
-                </h1>
-                <p className="mt-2 text-sm text-slate-500">
-                    現在の団の状況と直近の予定を確認できます。
+
+            <div className="sm:flex-auto">
+                <h1 className="text-2xl font-semibold leading-6 text-gray-900">ダッシュボード</h1>
+                <p className="mt-2 text-sm text-gray-700">
+                    現在の隊の状況と直近の予定を確認できます。
                 </p>
-            </header>
+            </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 <div className="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-gray-900/5 hover:shadow-md transition-shadow duration-300">

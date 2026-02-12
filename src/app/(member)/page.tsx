@@ -32,6 +32,7 @@ type Attendance = {
     schedule_id: string
     status: string
     comment: string
+    returned_home_at?: string
 }
 
 // Force dynamic rendering to prevent aggressive caching
@@ -44,8 +45,14 @@ export default function MemberDashboard() {
     const [schedules, setSchedules] = useState<Schedule[]>([])
     const [unlinkedMembers, setUnlinkedMembers] = useState<Member[]>([])
     const [myAttendances, setMyAttendances] = useState<Record<string, Attendance>>({})
+    const [now, setNow] = useState(new Date())
 
     const supabase = createClient()
+
+    useEffect(() => {
+        const timer = setInterval(() => setNow(new Date()), 60000)
+        return () => clearInterval(timer)
+    }, [])
 
     useEffect(() => {
         const checkUserLink = async () => {
@@ -131,6 +138,36 @@ export default function MemberDashboard() {
             window.location.reload()
         } else {
             alert('登録に失敗しました。もう一度お試しください。')
+        }
+    }
+
+    const handleReportHome = async (scheduleId: string) => {
+        if (!currentMember) return
+        if (!confirm('帰宅報告をしますか？')) return
+
+        const currentAttendance = myAttendances[scheduleId] || { schedule_id: scheduleId, status: 'unresponded', comment: '' }
+        const timestamp = new Date().toISOString()
+
+        // Optimistic update
+        setMyAttendances(prev => ({
+            ...prev,
+            [scheduleId]: { ...currentAttendance, returned_home_at: timestamp }
+        }))
+
+        const { error } = await supabase
+            .from('attendances')
+            .upsert({
+                schedule_id: scheduleId,
+                member_id: currentMember.id,
+                status: currentAttendance.status,
+                comment: currentAttendance.comment,
+                returned_home_at: timestamp,
+                updated_at: timestamp
+            }, { onConflict: 'schedule_id,member_id' })
+
+        if (error) {
+            alert('エラーが発生しました')
+            console.error(error)
         }
     }
 
@@ -290,6 +327,11 @@ export default function MemberDashboard() {
 
                 {schedules.map(schedule => {
                     const myStatus = myAttendances[schedule.id]?.status || null
+                    const returnedHomeAt = myAttendances[schedule.id]?.returned_home_at
+
+                    // Check if practice has ended
+                    const scheduleEndDate = new Date(`${schedule.date}T${schedule.end_time}`)
+                    const isPracticeEnded = now > scheduleEndDate
 
                     return (
                         <div key={schedule.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-shadow hover:shadow-md">
@@ -349,6 +391,28 @@ export default function MemberDashboard() {
                                         {myStatus === 'absence' && <XCircleIcon className="w-5 h-5 mr-1.5" />}
                                         欠席
                                     </button>
+                                </div>
+
+                                {/* Report Home Button */}
+                                <div className="mb-3">
+                                    {returnedHomeAt ? (
+                                        <div className="w-full bg-blue-50 text-blue-600 py-3 rounded-xl font-bold text-sm text-center border border-blue-100">
+                                            🏠 帰宅報告済み ({new Date(returnedHomeAt).getHours()}:{String(new Date(returnedHomeAt).getMinutes()).padStart(2, '0')})
+                                        </div>
+                                    ) : (
+                                        <button
+                                            onClick={() => handleReportHome(schedule.id)}
+                                            disabled={!isPracticeEnded}
+                                            className={`
+                                                w-full flex items-center justify-center py-3 px-4 rounded-xl font-bold text-sm transition-all duration-200
+                                                ${isPracticeEnded
+                                                    ? 'bg-orange-500 text-white shadow-md shadow-orange-100 hover:bg-orange-600 active:scale-95'
+                                                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'}
+                                            `}
+                                        >
+                                            🏠 帰宅報告 {isPracticeEnded ? '' : '(終了まで押せません)'}
+                                        </button>
+                                    )}
                                 </div>
 
                                 {/* Comment Field */}
