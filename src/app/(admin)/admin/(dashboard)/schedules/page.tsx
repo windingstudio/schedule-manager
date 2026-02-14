@@ -1,25 +1,15 @@
-import { createClient } from '@/utils/supabase/server'
+import { createClient } from '@/infrastructure/supabase/server'
 import Link from 'next/link'
 import BackButton from '@/components/admin/BackButton'
+import { SupabaseScheduleRepository } from '@/infrastructure/repositories/SupabaseScheduleRepository'
+import { GetSchedules } from '@/use_cases/schedule/GetSchedules'
 
 export default async function SchedulesPage() {
     const supabase = await createClient()
+    const repository = new SupabaseScheduleRepository(supabase)
+    const getSchedules = new GetSchedules(repository)
 
-    const { data: schedules } = await supabase
-        .from('schedules')
-        .select('*')
-        .order('date', { ascending: true })
-
-    // Date comparison logic
-    const now = new Date()
-    // Using simple string comparison for YYYY-MM-DD
-    const y = now.getFullYear()
-    const m = String(now.getMonth() + 1).padStart(2, '0')
-    const d = String(now.getDate()).padStart(2, '0')
-    const todayStr = `${y}-${m}-${d}`
-
-    const upcoming = schedules?.filter(s => s.date >= todayStr) || []
-    const finished = schedules?.filter(s => s.date < todayStr).reverse() || [] // Show recent finished first
+    const { upcoming, finished } = await getSchedules.execute()
 
     return (
         <div>

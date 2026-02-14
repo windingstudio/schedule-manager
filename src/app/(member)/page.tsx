@@ -1,7 +1,7 @@
 'use client'
 
 import { useLiff } from '@/components/LiffProvider'
-import { createClient } from '@/utils/supabase/client'
+import { createClient } from '@/infrastructure/supabase/client'
 import { useEffect, useState } from 'react'
 import {
     CalendarIcon,
@@ -308,7 +308,7 @@ export default function MemberDashboard() {
             <header className="bg-white shadow-sm px-4 py-3 sticky top-0 z-20 flex justify-between items-center backdrop-blur-md bg-white/90 supports-[backdrop-filter]:bg-white/60">
                 <h1 className="font-bold text-lg text-gray-900 flex items-center gap-2">
                     <CalendarIcon className="w-5 h-5 text-indigo-600" />
-                    マイスケジュール
+                    １シンスケジュール
                 </h1>
                 <div className="flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
                     <UserCircleIcon className="w-4 h-4 text-gray-400" />
@@ -332,25 +332,26 @@ export default function MemberDashboard() {
                     const myStatus = myAttendances[schedule.id]?.status || null
                     const returnedHomeAt = myAttendances[schedule.id]?.returned_home_at
 
-                    // Check if practice has ended
+                    // Check if struggle has ended
                     const scheduleEndDate = new Date(`${schedule.date}T${schedule.end_time}`)
                     const isPracticeEnded = now > scheduleEndDate
 
                     return (
                         <div key={schedule.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-shadow hover:shadow-md">
                             <div className="p-5">
-                                <div className="flex justify-between items-start mb-3">
-                                    <div className="flex flex-col">
-                                        <span className="text-2xl font-bold text-gray-900 tracking-tight" suppressHydrationWarning>
-                                            {formatDate(schedule.date)}
+                                <div className="flex justify-between items-center mb-2">
+                                    <span className="text-2xl font-bold text-gray-900 tracking-tight" suppressHydrationWarning>
+                                        {formatDate(schedule.date)}
+                                    </span>
+                                    <div className="flex items-center text-gray-600 bg-gray-50 px-2 py-1 rounded">
+                                        <ClockIcon className="w-4 h-4 mr-1.5 text-gray-400" />
+                                        <span className="text-sm font-medium font-mono">
+                                            {(schedule.start_time || '').slice(0, 5) + ' - ' + (schedule.end_time || '').slice(0, 5)}
                                         </span>
-                                        <div className="flex items-center text-gray-600 mt-1">
-                                            <ClockIcon className="w-4 h-4 mr-1.5 text-gray-400" />
-                                            <span className="text-sm font-medium font-mono">
-                                                {(schedule.start_time || '').slice(0, 5) + ' - ' + (schedule.end_time || '').slice(0, 5)}
-                                            </span>
-                                        </div>
                                     </div>
+                                </div>
+
+                                <div className="flex items-center mb-3">
                                     <div className="bg-indigo-50 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full flex items-center border border-indigo-100">
                                         <MapPinIcon className="w-3 h-3 mr-1" />
                                         {schedule.place}

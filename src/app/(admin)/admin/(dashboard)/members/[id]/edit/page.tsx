@@ -1,4 +1,4 @@
-import { createClient } from '@/utils/supabase/server'
+import { createClient } from '@/infrastructure/supabase/server'
 import { updateMember, deleteMember } from '../../actions'
 import BackButton from '@/components/admin/BackButton'
 

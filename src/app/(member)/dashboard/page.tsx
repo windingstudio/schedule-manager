@@ -1,7 +1,7 @@
 'use client'
 
 import { useLiff } from '@/components/LiffProvider'
-import { createClient } from '@/utils/supabase/client'
+import { createClient } from '@/infrastructure/supabase/client'
 import { useEffect, useState } from 'react'
 import {
     CalendarIcon,

@@ -1,4 +1,4 @@
-import { createClient } from '@/utils/supabase/server'
+import { createClient } from '@/infrastructure/supabase/server'
 import RemindButton from './RemindButton'
 
 export default async function ScheduleDetailPage({ params }: { params: Promise<{ id: string }> }) {
