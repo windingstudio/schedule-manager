@@ -56,7 +56,7 @@ export async function signup(formData: FormData) {
             redirect('/admin')
         } else if (data.user) {
             // Email confirmation required
-            redirect('/admin/login?message=Check your email to confirm verification')
+            redirect('/admin/login?message=確認メールを送信しました。メール内のリンクをクリックして登録を完了してください。（※迷惑メールフォルダもご確認ください）')
         } else {
             redirect('/admin/login?error=Unknown error occurred')
         }
