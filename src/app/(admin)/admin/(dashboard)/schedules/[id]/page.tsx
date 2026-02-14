@@ -16,10 +16,11 @@ export default async function ScheduleDetailPage({ params }: { params: Promise<{
         return <div>日程が見つかりません</div>
     }
 
-    // Fetch all members to show everyone
+    // Fetch all members to show everyone (exclude those on leave)
     const { data: members } = await supabase
         .from('members')
         .select('*')
+        .eq('is_on_leave', false) // Exclude members on leave
         .order('part', { ascending: true })
         .order('name', { ascending: true })
 
