@@ -1,12 +1,18 @@
 import { login, signup, loginWithSocial } from './actions'
+import { LoginAlert } from './LoginAlert'
 
-export default function LoginPage({
+export default async function LoginPage({
     searchParams,
 }: {
-    searchParams?: { [key: string]: string | string[] | undefined }
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
+    const params = await searchParams
+    const message = params?.message as string | undefined
+    const error = params?.error as string | undefined
+
     return (
         <div className="flex h-screen items-center justify-center bg-gray-50">
+            <LoginAlert />
             <div className="w-full max-w-md space-y-8 rounded-lg bg-white p-8 shadow-md">
                 <div className="text-center">
                     <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
@@ -17,14 +23,14 @@ export default function LoginPage({
                         (初回のみ新規登録ボタンを押してください)
                     </p>
                 </div>
-                {searchParams?.message && (
+                {message && (
                     <div className="mt-4 p-3 bg-green-50 text-green-700 border border-green-200 rounded-md text-sm">
-                        {searchParams.message}
+                        {message}
                     </div>
                 )}
-                {searchParams?.error && (
+                {error && (
                     <div className="mt-4 p-3 bg-red-50 text-red-700 border border-red-200 rounded-md text-sm">
-                        {searchParams.error}
+                        {error}
                     </div>
                 )}
                 <form className="mt-8 space-y-6">
