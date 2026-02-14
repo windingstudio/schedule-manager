@@ -18,7 +18,7 @@ export async function login(formData: FormData) {
     })
 
     if (error) {
-        redirect('/admin/login?error=Invalid credentials')
+        redirect('/admin/login?error=メールアドレスまたはパスワードが正しくありません')
     }
 
     revalidatePath('/admin', 'layout')
@@ -47,7 +47,12 @@ export async function signup(formData: FormData) {
         })
 
         if (error) {
-            redirect('/admin/login?error=Registration failed: ' + error.message)
+            // Translate common Supabase errors
+            let msg = '登録に失敗しました: ' + error.message
+            if (error.message.includes('already registered')) {
+                msg = 'このメールアドレスは既に登録されています'
+            }
+            redirect('/admin/login?error=' + encodeURIComponent(msg))
         }
 
         if (data.session) {
@@ -58,7 +63,7 @@ export async function signup(formData: FormData) {
             // Email confirmation required
             redirect('/admin/login?message=確認メールを送信しました。メール内のリンクをクリックして登録を完了してください。（※迷惑メールフォルダもご確認ください）')
         } else {
-            redirect('/admin/login?error=Unknown error occurred')
+            redirect('/admin/login?error=予期せぬエラーが発生しました')
         }
     } catch (e) {
         // If it's a redirect error, rethrow it so Next.js handles it
@@ -66,7 +71,7 @@ export async function signup(formData: FormData) {
             throw e
         }
         console.error('Signup error:', e)
-        redirect('/admin/login?error=System Error: ' + (e as Error).message)
+        redirect('/admin/login?error=システムエラー: ' + (e as Error).message)
     }
 }
 
@@ -85,7 +90,7 @@ export async function loginWithSocial(provider: 'google' | 'apple') {
     })
 
     if (error) {
-        redirect('/admin/login?error=' + error.message)
+        redirect('/admin/login?error=ログインエラー: ' + error.message)
     }
 
     if (data.url) {
