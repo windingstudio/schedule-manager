@@ -9,7 +9,7 @@ const PARTS = [
 ]
 
 const ROLES = [
-    'バンド長', '副バンド長', '組織主任', '音楽主任', 'パート長', '副パート長'
+    '総バンド長', 'バンド長', '副バンド長', '組織主任', '音楽主任', 'パート長', '副パート長'
 ]
 
 export default async function EditMemberPage({ params }: { params: Promise<{ id: string }> }) {

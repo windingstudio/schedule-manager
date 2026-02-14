@@ -41,7 +41,7 @@ export default async function ScheduleDetailPage({ params }: { params: Promise<{
         'トランペット', 'ホルン', 'トロンボーン', 'ユーフォニアム', 'チューバ',
         'コントラバス', 'パーカッション', '新入隊員'
     ]
-    const OFFICER_ROLES = ['バンド長', '副バンド長', '組織主任', '音楽主任', 'パート長', '副パート長']
+    const OFFICER_ROLES = ['総バンド長', 'バンド長', '副バンド長', '組織主任', '音楽主任', 'パート長', '副パート長']
     const PART_LEADER_ROLES = ['パート長', '副パート長'] // Kept for reference or fallback
 
     // Grouping
