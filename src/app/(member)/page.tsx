@@ -369,15 +369,15 @@ export default function MemberDashboard() {
                             </div>
 
                             {/* Action Area */}
-                            <div className="px-4 pb-4 pt-1">
-                                <div className="grid grid-cols-2 gap-3 mb-3">
+                            <div className="px-5 pb-5 pt-2 bg-gray-50/50">
+                                <div className="grid grid-cols-2 gap-3 mb-4">
                                     <button
                                         onClick={() => handleAttendanceChange(schedule.id, 'attendance')}
                                         className={`
                         relative flex items-center justify-center py-3 px-4 rounded-xl font-bold text-sm transition-all duration-200 active:scale-95
                         ${myStatus === 'attendance'
                                                 ? 'bg-green-600 text-white shadow-md shadow-green-200 ring-2 ring-green-600 ring-offset-2'
-                                                : 'bg-white text-gray-600 border-2 border-gray-100 hover:bg-gray-50'}
+                                                : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50 hover:border-gray-300'}
                     `}
                                     >
                                         {myStatus === 'attendance' && <CheckCircleIcon className="w-5 h-5 mr-1.5" />}
@@ -389,7 +389,7 @@ export default function MemberDashboard() {
                         relative flex items-center justify-center py-3 px-4 rounded-xl font-bold text-sm transition-all duration-200 active:scale-95
                         ${myStatus === 'absence'
                                                 ? 'bg-red-500 text-white shadow-md shadow-red-200 ring-2 ring-red-500 ring-offset-2'
-                                                : 'bg-white text-gray-600 border-2 border-gray-100 hover:bg-gray-50'}
+                                                : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50 hover:border-gray-300'}
                     `}
                                     >
                                         {myStatus === 'absence' && <XCircleIcon className="w-5 h-5 mr-1.5" />}
@@ -398,36 +398,37 @@ export default function MemberDashboard() {
                                 </div>
 
                                 {/* Report Home Button */}
-                                <div className="mb-3">
+                                <div className="mb-4">
                                     {returnedHomeAt ? (
-                                        <div className="w-full bg-blue-50 text-blue-600 py-3 rounded-xl font-bold text-sm text-center border border-blue-100">
-                                            🏠 帰宅報告済み ({new Date(returnedHomeAt).getHours()}:{String(new Date(returnedHomeAt).getMinutes()).padStart(2, '0')})
+                                        <div className="w-full bg-blue-50 text-blue-600 py-3 rounded-xl font-bold text-sm text-center border border-blue-100 flex items-center justify-center gap-2">
+                                            <CheckCircleIcon className="w-5 h-5" />
+                                            帰宅報告済み ({new Date(returnedHomeAt).getHours()}:{String(new Date(returnedHomeAt).getMinutes()).padStart(2, '0')})
                                         </div>
                                     ) : (
                                         <button
                                             onClick={() => handleReportHome(schedule.id)}
-                                            disabled={!isPracticeEnded}
+                                            disabled={!isPracticeEnded || myStatus === 'absence'}
                                             className={`
                                                 w-full flex items-center justify-center py-3 px-4 rounded-xl font-bold text-sm transition-all duration-200
-                                                ${isPracticeEnded
-                                                    ? 'bg-orange-500 text-white shadow-md shadow-orange-100 hover:bg-orange-600 active:scale-95'
-                                                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'}
+                                                ${(!isPracticeEnded || myStatus === 'absence')
+                                                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                                                    : 'bg-orange-500 text-white shadow-md shadow-orange-100 hover:bg-orange-600 active:scale-95'}
                                             `}
                                         >
-                                            🏠 帰宅報告 {isPracticeEnded ? '' : '(終了まで押せません)'}
+                                            🏠 帰宅報告 {myStatus === 'absence' ? '(欠席のため不可)' : isPracticeEnded ? '' : '(終了まで押せません)'}
                                         </button>
                                     )}
                                 </div>
 
                                 {/* Comment Field */}
-                                <div className="mt-4">
-                                    <label htmlFor={`comment-${schedule.id}`} className="block text-xs font-medium text-gray-700 mb-1 ml-1">
-                                        コメント・備考
+                                <div>
+                                    <label htmlFor={`comment-${schedule.id}`} className="block text-xs font-bold text-gray-500 mb-1.5 ml-1">
+                                        連絡事項
                                     </label>
                                     <textarea
                                         id={`comment-${schedule.id}`}
-                                        placeholder="遅刻の理由や連絡事項があれば入力..."
-                                        className="block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-white text-gray-900"
+                                        placeholder="連絡事項があれば入力"
+                                        className="block w-full rounded-xl border-gray-200 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm bg-white text-gray-900 placeholder-gray-400 resize-none py-2 px-3"
                                         rows={2}
                                         value={myAttendances[schedule.id]?.comment || ''}
                                         onChange={(e) => {
